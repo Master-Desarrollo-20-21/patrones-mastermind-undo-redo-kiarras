@@ -62,5 +62,14 @@ public class Game {
 	public int getWidth() {
 		return Combination.getWidth();
 	}
+	
+	public GameMemento createMemento() {
+        return new GameMemento(this.proposedCombinations, this.results, this.attempts);
+	}
 
+	public void set(GameMemento gameMemento) {
+		this.attempts = gameMemento.getAttempts();
+		this.proposedCombinations.set(this.attempts, gameMemento.getproposedCombination());
+		this.results.set(this.attempts, gameMemento.getResult());
+	}
 }
