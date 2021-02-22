@@ -12,13 +12,7 @@ public class RedoController extends Controller {
         this.session.redo();
       }
     
-      boolean redoable() {
-        return this.session.redoable();
-      }
-
-      @Override
-      public void accept(ControllersVisitor controllersVisitor) {
-          // TODO Auto-generated method stub
-
+      boolean isRedoable() {
+        return this.session.isRedoable();
       }
 }

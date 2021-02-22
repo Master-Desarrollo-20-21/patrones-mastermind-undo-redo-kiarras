@@ -12,14 +12,8 @@ public class UndoController extends Controller {
         this.session.undo();
       }
 
-	public boolean undoable() {
-        return this.session.undoable();
+	public boolean isUndoable() {
+        return this.session.isUndoable();
 	}
-      
-    @Override
-    public void accept(ControllersVisitor controllersVisitor) {
-        // TODO Auto-generated method stub
-
-    }
     
 }

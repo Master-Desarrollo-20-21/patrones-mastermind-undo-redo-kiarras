@@ -2,7 +2,7 @@ package usantatecla.mastermind.controllers;
 
 import usantatecla.mastermind.models.Session;
 
-public class StartController extends Controller {
+public class StartController extends Controller implements AcceptController {
 
 	public StartController(Session session) {
 		super(session);

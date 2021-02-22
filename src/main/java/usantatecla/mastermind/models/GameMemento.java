@@ -14,7 +14,6 @@ public class GameMemento {
 		this.proposedCombination = proposedCombinations.get(attempts).copy();
         
         this.result = results.get(attempts).copy();
-
         this.attempts = attempts;
     }
   

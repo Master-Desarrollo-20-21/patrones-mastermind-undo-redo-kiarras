@@ -2,12 +2,11 @@ package usantatecla.mastermind.controllers;
 
 import java.util.List;
 
-import usantatecla.mastermind.models.Combination;
 import usantatecla.mastermind.models.Session;
 import usantatecla.mastermind.types.Color;
 import usantatecla.mastermind.types.Error;
 
-public class ProposalController extends Controller {
+public class ProposalController extends Controller implements AcceptController {
 
 	private ActionController actionController;
 	private UndoController undoController;
@@ -16,32 +15,12 @@ public class ProposalController extends Controller {
 	public ProposalController(Session session) {
 		super(session);
 		this.actionController = new ActionController(session);
+		this.undoController = new UndoController(session);
+		this.redoController = new RedoController(session);
 	}
 
 	public Error addProposedCombination(List<Color> colors) {
-		Error error = null;
-		if (colors.size() != Combination.getWidth()) {
-			error = Error.WRONG_LENGTH;
-		} else {
-			for (int i = 0; i < colors.size(); i++) {
-				if (colors.get(i) == null) {
-					error = Error.WRONG_CHARACTERS;
-				} else {
-					for (int j = i+1; j < colors.size(); j++) {
-						if (colors.get(i) == colors.get(j)) {
-							error = Error.DUPLICATED;
-						}
-					}
-				}				
-			}
-		}
-		if (error == null){
-			this.actionController.addProposedCombination(colors);
-			if (this.actionController.isWinner() || this.actionController.isLooser()) {
-				this.actionController.next();
-			}
-		}
-		return error;	
+		return this.actionController.addProposedCombination(colors);	
 	}
 
 	public boolean isWinner() {
@@ -72,16 +51,16 @@ public class ProposalController extends Controller {
 		this.undoController.undo();
 	}
 
-	public boolean undoable() {
-		return this.undoController.undoable();
+	public boolean isUndoable() {
+		return this.undoController.isUndoable();
 	}
 
 	public void redo() {
 		this.redoController.redo();
 	}
 
-	public boolean redoable() {
-		return this.redoController.redoable();
+	public boolean isRedoable() {
+		return this.redoController.isRedoable();
 	}
 
 	@Override
